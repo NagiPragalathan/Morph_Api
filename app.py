@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import openai
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable CORS for all routes and allow all origins
+CORS(app)
 
 # Set up the OpenAI client with the base URL and API key
 openai.api_base = 'https://api.red-pill.ai/v1'
@@ -32,7 +36,6 @@ def chat_completion():
 
         # Return the chat response as JSON
         return jsonify({'response': chat_response,  'block': 123}), 200
-
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
